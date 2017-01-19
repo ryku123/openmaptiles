@@ -1,0 +1,16 @@
+tileset:
+  layers:
+    - layers/hiking_poi/hiking_poi.yaml
+    - layers/hiking_trails/hiking_trails.yaml
+  name: OpenMapTiles
+  version: 3.3.0
+  id: openmaptiles-hiking
+  description: "A tileset showing crucial information for hikers"
+  attribution: '<a href="http://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="http://www.openstreetmap.org/about/" target="_blank">&copy; OpenStreetMap contributors</a>'
+  center: [-12.2168, 28.6135, 4]
+  maxzoom: 14
+  minzoom: 0
+  defaults:
+    srs: +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over
+    datasource:
+      srid: 900913
