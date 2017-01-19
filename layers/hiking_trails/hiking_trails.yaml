@@ -1,0 +1,28 @@
+layer:
+  id: "hiking_trails"
+  description: Description for Hiking trails
+  buffer_size: 4
+  fields:
+    name: |
+        The OSM [`name`](http://wiki.openstreetmap.org/wiki/Key:name) value of the hiking_trails.
+        The `name` field may be empty for NaturalEarth data or at lower zoom levels.
+    name_en: The english `name:en` value if available.
+    class:
+      description: |
+        The original value of the [`route`](http://wiki.openstreetmap.org/wiki/Relation:route) relation tag.
+      values:
+      - hiking
+      - foot
+      - bicycle
+      - mtb
+      - ski
+      - horse
+      - wheelchair
+  datasource:
+    geometry_field: geometry
+    query: (SELECT geometry, name, name_en, class, type FROM layer_hiking_trails(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./hiking_trails.sql
+datasources:
+  - type: imposm3
+    mapping_file: ./mapping.yaml

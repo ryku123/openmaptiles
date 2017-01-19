@@ -1,0 +1,73 @@
+tags:
+  load_all: true
+  exclude:
+  - created_by
+  - source
+
+
+tables:
+  # etldoc: imposm3 -> osm_hiking_routes
+  hiking_trails_routes:
+    type: relation
+    columns:
+    - name: osm_id
+      type: id
+    - key: ref
+      name: ref
+      type: string
+    - name: network
+      key: network
+      type: string
+    - name: route
+      key: route
+      type: string
+    mapping:
+      route:
+        - hiking
+        - foot
+        - bicycle
+        - mtb
+        - ski
+        - horse
+        - wheelchair
+
+  # etldoc: imposm3 -> osm_hiking_linestring
+  hiking_trails_linestring:
+    type: relation_member
+    columns:
+    - name: osm_id
+      type: id
+    - name: member
+      type: member_id
+    - name: index
+      type: member_index
+    - name: role
+      type: member_role
+    - name: type
+      type: member_type
+    - name: geometry
+      type: geometry
+    - name: relname
+      key: name
+      type: string
+    - name: name
+      key: name
+      type: string
+      from_member: true
+    - key: ref
+      name: ref
+      type: string
+    - name: name_en
+      key: name:en
+      type: string
+      from_member: true
+    mapping:
+      route:
+        - hiking
+        - foot
+        - bicycle
+        - mtb
+        - ski
+        - horse
+        - wheelchair
+
