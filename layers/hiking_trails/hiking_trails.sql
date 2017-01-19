@@ -5,8 +5,8 @@ CREATE OR REPLACE VIEW hiking_trails AS (
         r.route AS class,
         rm.name,
         rm.name_en
-    FROM hiking_trails_linestring as rm
-    JOIN hiking_trails_routes as r on r.osm_id = rm.osm_id
+    FROM osm_hiking_trails_linestring as rm
+    JOIN osm_hiking_trails_routes as r on r.osm_id = rm.osm_id
     WHERE r.route IN ('hiking', 'foot')
 );
 

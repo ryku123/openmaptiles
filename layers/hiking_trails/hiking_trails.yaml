@@ -20,7 +20,7 @@ layer:
       - wheelchair
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, name, name_en, class, type FROM layer_hiking_trails(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, name, name_en, class FROM layer_hiking_trails(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ./hiking_trails.sql
 datasources:
