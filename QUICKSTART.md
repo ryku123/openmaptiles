@@ -113,6 +113,7 @@ This is generating `.mbtiles` for your area :  [ MIN_ZOOM: "0"  - MAX_ZOOM: "7" 
 ./quickstart.sh cuba
 ./quickstart.sh cumbria
 ./quickstart.sh cyprus
+./quickstart.sh czech-republic
 ./quickstart.sh dach
 ./quickstart.sh delaware
 ./quickstart.sh denmark
