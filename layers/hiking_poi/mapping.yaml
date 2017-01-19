@@ -1,0 +1,56 @@
+def_mapping: &def_mapping
+  tourism:
+  - alpine_hut
+  - wilderness_hut
+  amenity:
+  - shelter
+
+tables:
+  # etldoc: imposm3 -> osm_hiking_poi_point
+  hiking_poi_point:
+    type: point
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: name
+      key: name
+      type: string
+    - name: amenity
+      key: amenity
+      type: string
+    - name: tourism
+      key: tourism
+      type: string
+    - name: operator
+      key: operator
+      type: string
+    - name: elevation
+      key: ele
+      type: integer
+    mapping: *def_mapping
+
+  hiking_poi_polygon:
+    type: polygon
+    fields:
+    - name: osm_id
+      type: id
+    - name: geometry
+      type: geometry
+    - name: name
+      key: name
+      type: string
+    - name: amenity
+      key: amenity
+      type: string
+    - name: tourism
+      key: tourism
+      type: string
+    - name: operator
+      key: operator
+      type: string
+    - name: elevation
+      key: ele
+      type: integer
+    mapping: *def_mapping
