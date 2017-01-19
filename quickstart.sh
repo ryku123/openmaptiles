@@ -118,7 +118,7 @@ make clean-docker
 echo " "
 echo "-------------------------------------------------------------------------------------"
 echo "====> : Checking OpenMapTiles docker images "
-docker images | grep openmaptiles
+docker images | grep "openmaptiles/"
 
 echo " "
 echo "-------------------------------------------------------------------------------------"
