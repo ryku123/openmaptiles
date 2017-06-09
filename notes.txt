@@ -45,3 +45,17 @@ docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtil
 docker pull klokantech/tileserver-gl
 docker run -it --rm -v $$(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
 docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
+
+### Create Maputnik (style editor)
+# https://github.com/maputnik/editor/releases
+maputnik_windows.exe
+
+### Download map style
+cd ..
+git clone https://github.com/openmaptiles/osm-bright-gl-style
+cd klokantech-openmaptiles
+
+### Edit style locally
+docker run -it --rm -v $$(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
+maputnik_windows.exe --watch --file ..\osm-bright-gl-style\style.json
