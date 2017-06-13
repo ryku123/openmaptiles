@@ -12,7 +12,7 @@ docker-compose run --rm import-osm  ./download-geofabrik.sh albania
 # ERROR: Cannot create container for service import-osm: D: drive is not shared. Please share it in Docker for Windows Settings
 # https://blogs.msdn.microsoft.com/stevelasker/2016/06/14/configuring-docker-for-windows-volumes/
 
-### Prepare import configurationcdkl
+### Prepare import configuration
 docker-compose run --rm openmaptiles-tools make clean
 docker-compose run --rm openmaptiles-tools make
 
@@ -30,7 +30,7 @@ docker-compose run --rm import-sql
 ### Connect to DB
 docker-compose run --rm postgres psql postgresql://openmaptiles@postgres/openmaptiles
 
-### Analyze, vacuum analyze
+### Analyze (reporting), vacuum analyze (lower DB size)
 docker-compose run --rm import-osm /usr/src/app/psql.sh  -P pager=off  -c "ANALYZE VERBOSE;"
 docker-compose run --rm import-osm /usr/src/app/psql.sh  -P pager=off  -c "VACUUM ANALYZE VERBOSE;"
 
@@ -43,10 +43,23 @@ docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtil
 
 ### Serve MBTiles
 docker pull klokantech/tileserver-gl
-docker run -it --rm -v $$(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
 docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
 
-### Create Maputnik (style editor)
+### Render Hokkaido
+rm -rf data
+cp -r sample-data/ data
+wget -O data/hokkaido-latest.osm.pbf http://download.geofabrik.de/asia/japan/hokkaido-latest.osm.pbf
+docker-compose run --rm openmaptiles-tools make clean
+docker-compose run --rm openmaptiles-tools make
+docker-compose run --rm import-osm
+docker-compose run --rm import-sql
+docker-compose -f docker-compose.yml -f ./data/docker-compose-config.yml  run --rm generate-vectortiles
+docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtiles
+docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
+
+### Install Maputnik (style editor)
 # https://github.com/maputnik/editor/releases
 maputnik_windows.exe
 
