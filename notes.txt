@@ -42,7 +42,6 @@ docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtil
 docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
 
 ### Serve MBTiles
-docker pull klokantech/tileserver-gl
 docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
 docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
 
