@@ -45,8 +45,8 @@ docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtil
 docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
 
 ### Serve MBTiles
-docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
-docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
 
 ### Render Hokkaido
 rm -rf data
@@ -59,7 +59,7 @@ docker-compose run --rm import-sql
 docker-compose -f docker-compose.yml -f ./data/docker-compose-config.yml  run --rm generate-vectortiles
 docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtiles
 docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
-docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
 
 ### Install Maputnik (style editor)
 # https://github.com/maputnik/editor/releases
@@ -71,6 +71,6 @@ git clone https://github.com/openmaptiles/osm-bright-gl-style
 cd klokantech-openmaptiles
 
 ### Edit style locally
-docker run -it --rm -v $$(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl
-docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl
+docker run -it --rm -v $$(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
 maputnik_windows.exe --watch --file ..\osm-bright-gl-style\style.json
