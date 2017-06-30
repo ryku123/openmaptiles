@@ -17,19 +17,110 @@ docker run -it --rm -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl:v1.7.0 <
 
 **Windows**
 ```bash
-docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0 <name of your mbtiles file>
+docker run -it --rm -v %cd%:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0 <name of your mbtiles file>
 ```
-
 
 
 ## Generate your own vector tiles
 
+```
+git clone https://github.com/openmaptiles/openmaptiles.git openmaptiles
+cd openmaptiles
+git checkout v3.6
+```
+
+```
+docker-compose up mapbox-studio
+```
+
 
 ## Generate your own OpenMapTiles
+```
+### Download Albania
+docker-compose run --rm import-osm  ./download-geofabrik.sh albania
+```
+
+```
+### Prepare import configuration
+docker-compose run --rm openmaptiles-tools make clean
+docker-compose run --rm openmaptiles-tools make
+```
+
+```
+### Start DB
+docker-compose up   -d postgres
+```
+
+```
+### Import data
+docker-compose run --rm import-water
+docker-compose run --rm import-osmborder
+docker-compose run --rm import-natural-earth
+docker-compose run --rm import-lakelines
+docker-compose run --rm import-osm
+docker-compose run --rm import-sql
+```
+
+```
+### Connect to DB
+docker-compose run --rm postgres psql postgresql://openmaptiles@postgres/openmaptiles
+```
+
+```
+### Analyze (reporting), vacuum analyze (lower DB size)
+docker-compose run --rm import-osm /usr/src/app/psql.sh  -P pager=off  -c "ANALYZE VERBOSE;"
+docker-compose run --rm import-osm /usr/src/app/psql.sh  -P pager=off  -c "VACUUM ANALYZE VERBOSE;"
+```
+
+```
+### Render tiles
+docker-compose -f docker-compose.yml -f ./data/docker-compose-config.yml  run --rm generate-vectortiles
+```
+
+```
+### Add metadata
+docker-compose run --rm openmaptiles-tools  generate-metadata ./data/tiles.mbtiles
+docker-compose run --rm openmaptiles-tools  chmod 666         ./data/tiles.mbtiles
+```
+
+
+**Linux**
+```bash
+### Serve MBTiles
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+```
+
+**Windows**
+```bash
+### Serve MBTiles
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+```
 
 
 ## Prepare visual style for vector tiles
+- http://maputnik.com/editor/
+- https://github.com/maputnik/editor/releases
 
+```
+### Download map style
+cd ..
+git clone https://github.com/openmaptiles/osm-bright-gl-style
+cd klokantech-openmaptiles
+```
+
+**Linux**
+```bash
+### Edit style locally
+docker run -it --rm -v $(pwd)/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+maputnik --watch --file ..\osm-bright-gl-style\style.json
+```
+
+**Windows**
+```bash
+### Edit style locally
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0
+maputnik_windows.exe --watch --file ..\osm-bright-gl-style\style.json
+```
 
 ## Display raster and vector map in a web browser
 
