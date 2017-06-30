@@ -47,6 +47,8 @@ git checkout v3.6
 docker-compose up mapbox-studio
 ```
 
+- https://github.com/mapbox/tippecanoe
+
 
 ## Generate your own OpenMapTiles
 ```
