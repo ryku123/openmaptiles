@@ -48,6 +48,7 @@ docker-compose up mapbox-studio
 ```
 
 - https://github.com/mapbox/tippecanoe
+- https://hub.docker.com/r/osm2vectortiles/mapbox-studio/
 
 
 ## Generate your own OpenMapTiles
