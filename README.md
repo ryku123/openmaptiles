@@ -3,6 +3,37 @@
 - [Presentation](https://docs.google.com/presentation/d/1VAGQKfViLYuL8Ca9nyfjF70-bEH0M9Ho4JSNlw42Sqg/edit?usp=sharing)
 
 
+## Download and serve raster and vector tiles from your server
+- https://openmaptiles.org/downloads/
+
+```bash
+cd path/to/downloaded/file
+```
+
+**Linux**
+```bash
+docker run -it --rm -v $(pwd):/data -p 8080:80 klokantech/tileserver-gl:v1.7.0 <name of your mbtiles file>
+```
+
+**Windows**
+```bash
+docker run -it --rm -v %cd%/data:/data -p 8080:80 klokantech/tileserver-gl:v1.7.0 <name of your mbtiles file>
+```
+
+
+
+## Generate your own vector tiles
+
+
+## Generate your own OpenMapTiles
+
+
+## Prepare visual style for vector tiles
+
+
+## Display raster and vector map in a web browser
+
+
 
 ## OpenMapTiles [![Build Status](https://travis-ci.org/openmaptiles/openmaptiles.svg?branch=master)](https://travis-ci.org/openmaptiles/openmaptiles)
 
