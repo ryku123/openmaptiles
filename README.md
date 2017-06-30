@@ -3,6 +3,20 @@
 - [Presentation](https://docs.google.com/presentation/d/1VAGQKfViLYuL8Ca9nyfjF70-bEH0M9Ho4JSNlw42Sqg/edit?usp=sharing)
 
 
+## Import docker images
+```bash
+docker load -i generate-vectortiles.tar
+docker load -i import-osmborder.tar
+docker load -i import-water.tar
+docker load -i tileserver-gl.tar
+docker load -i import-lakelines.tar
+docker load -i import-osm.tar
+docker load -i omt-tools.tar
+docker load -i import-natural-earth.tar
+docker load -i import-sql.tar
+docker load -i postgres.tar
+```
+
 ## Download and serve raster and vector tiles from your server
 - https://openmaptiles.org/downloads/
 
