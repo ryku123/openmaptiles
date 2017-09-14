@@ -9,7 +9,7 @@ BEGIN
     WHERE station = 'subway' and subclass='station';
 
   UPDATE osm_poi_point
-  SET tags = slice_language_tags(tags) || get_basic_names(tags, geometry)
+  SET tags = update_language_tags(tags, geometry)
   WHERE COALESCE(tags->'name:latin', tags->'name:nonlatin', tags->'name_int') IS NULL;
 
 END;
