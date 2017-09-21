@@ -118,14 +118,6 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, subclass text) AS $$
         UNION ALL
         -- etldoc:  landcover_z12 -> layer_landcover:z12
         SELECT *
-        FROM landcover_z12 WHERE zoom_level = 12 AND geometry && bbox
-        UNION ALL
-        -- etldoc:  landcover_z13 -> layer_landcover:z13
-        SELECT *
-        FROM landcover_z13 WHERE zoom_level = 13 AND geometry && bbox
-        UNION ALL
-        -- etldoc:  landcover_z14 -> layer_landcover:z14_
-        SELECT *
-        FROM landcover_z14 WHERE zoom_level >= 14 AND geometry && bbox
+        FROM landcover_z14 WHERE zoom_level >= 12 AND geometry && bbox
     ) AS zoom_levels;
 $$ LANGUAGE SQL IMMUTABLE;

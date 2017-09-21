@@ -24,7 +24,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
      FROM osm_peak_point
      WHERE geometry && bbox AND ele is not null AND ele ~ E'^-?\\d+'
    ) AS ranked_peaks
-   WHERE zoom_level >= 7 AND (rank <= 5 OR zoom_level >= 14)
+   WHERE zoom_level >= 7 AND (rank <= 5 OR zoom_level >= 12)
    ORDER BY "rank" ASC;
 
 $$ LANGUAGE SQL IMMUTABLE;

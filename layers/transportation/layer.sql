@@ -107,14 +107,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             service_value(service) AS service,
             is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
         FROM osm_highway_linestring
-        WHERE NOT is_area AND (
-            zoom_level = 12 AND (
-                highway_class(highway) NOT IN ('track', 'path', 'minor')
-                OR highway IN ('unclassified', 'residential')
-            )
-            OR zoom_level = 13 AND highway_class(highway) NOT IN ('track', 'path')
-            OR zoom_level >= 14
-        )
+        WHERE NOT is_area AND zoom_level >= 12
         UNION ALL
 
         -- etldoc: osm_railway_linestring_gen3  ->  layer_transportation:z10
@@ -135,24 +128,13 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
         WHERE zoom_level = 11 AND (railway='rail' AND service = '')
         UNION ALL
 
-        -- etldoc: osm_railway_linestring_gen1  ->  layer_transportation:z12
-        SELECT
-            osm_id, geometry, NULL AS highway, railway,
-            service_value(service) AS service,
-            is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
-        FROM osm_railway_linestring_gen1
-        WHERE zoom_level = 12 AND (railway='rail' AND service = '')
-        UNION ALL
-
-        -- etldoc: osm_railway_linestring       ->  layer_transportation:z13
         -- etldoc: osm_railway_linestring       ->  layer_transportation:z14_
         SELECT
             osm_id, geometry, NULL AS highway, railway,
             service_value(service) AS service,
             is_bridge, is_tunnel, is_ford, is_ramp, is_oneway, z_order
         FROM osm_railway_linestring
-        WHERE zoom_level = 13 AND (railway='rail' AND service = '')
-           OR zoom_Level >= 14
+        WHERE zoom_Level >= 12
         UNION ALL
 
         -- NOTE: We limit the selection of polys because we need to be
@@ -168,7 +150,7 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text, ramp int, oneway int
             FALSE AS is_ramp, FALSE AS is_oneway, z_order
         FROM osm_highway_polygon
         -- We do not want underground pedestrian areas for now
-        WHERE zoom_level >= 13 AND is_area AND COALESCE(layer, 0) >= 0
+        WHERE zoom_level >= 12 AND is_area AND COALESCE(layer, 0) >= 0
     ) AS zoom_levels
     WHERE geometry && bbox
     ORDER BY z_order ASC;

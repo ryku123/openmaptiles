@@ -36,20 +36,10 @@ RETURNS TABLE(osm_id bigint, geometry geometry, class text) AS $$
         FROM osm_park_polygon_gen3
         WHERE zoom_level = 11
         UNION ALL
-        -- etldoc: osm_park_polygon_gen2 -> layer_park:z12
-        SELECT osm_id, geometry, leisure, boundary, NULL::int as scalerank
-        FROM osm_park_polygon_gen2
-        WHERE zoom_level = 12
-        UNION ALL
-        -- etldoc: osm_park_polygon_gen1 -> layer_park:z13
-        SELECT osm_id, geometry, leisure, boundary, NULL::int as scalerank
-        FROM osm_park_polygon_gen1
-        WHERE zoom_level = 13
-        UNION ALL
         -- etldoc: osm_park_polygon -> layer_park:z14
         SELECT osm_id, geometry, leisure, boundary, NULL::int as scalerank
         FROM osm_park_polygon
-        WHERE zoom_level >= 14
+        WHERE zoom_level >= 12
     ) AS zoom_levels
     WHERE geometry && bbox;
 $$ LANGUAGE SQL IMMUTABLE;

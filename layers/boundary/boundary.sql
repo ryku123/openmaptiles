@@ -160,9 +160,6 @@ RETURNS TABLE(geometry geometry, admin_level int, disputed int, maritime int) AS
         SELECT * FROM boundary_z11 WHERE geometry && bbox AND zoom_level = 11
         UNION ALL
         -- etldoc: boundary_z12 ->  layer_boundary:z12
-        SELECT * FROM boundary_z12 WHERE geometry && bbox AND zoom_level = 12
-        UNION ALL
-        -- etldoc: boundary_z13 -> layer_boundary:z13
-        SELECT * FROM boundary_z13 WHERE geometry && bbox AND zoom_level >= 13
+        SELECT * FROM boundary_z13 WHERE geometry && bbox AND zoom_level >= 12
     ) AS zoom_levels;
 $$ LANGUAGE SQL IMMUTABLE;

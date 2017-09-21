@@ -13,8 +13,8 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
     'lake'::text AS class
     FROM osm_water_lakeline
     WHERE geometry && bbox
-      AND ((zoom_level BETWEEN 9 AND 13 AND LineLabel(zoom_level, NULLIF(name, ''), geometry))
-        OR (zoom_level >= 14))
+      AND ((zoom_level BETWEEN 9 AND 11 AND LineLabel(zoom_level, NULLIF(name, ''), geometry))
+        OR (zoom_level >= 12))
     -- etldoc: osm_water_point ->  layer_water_name:z9_13
     -- etldoc: osm_water_point ->  layer_water_name:z14_
     UNION ALL
@@ -25,8 +25,8 @@ RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de
     'lake'::text AS class
     FROM osm_water_point
     WHERE geometry && bbox AND (
-        (zoom_level BETWEEN 9 AND 13 AND area > 70000*2^(20-zoom_level))
-        OR (zoom_level >= 14)
+        (zoom_level BETWEEN 9 AND 11 AND area > 70000*2^(20-zoom_level))
+        OR (zoom_level >= 12)
     )
     -- etldoc: osm_marine_point ->  layer_water_name:z0_8
     -- etldoc: osm_marine_point ->  layer_water_name:z9_13
