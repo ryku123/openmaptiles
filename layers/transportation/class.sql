@@ -29,7 +29,7 @@ $$ LANGUAGE SQL IMMUTABLE STRICT;
 CREATE OR REPLACE FUNCTION railway_class(railway TEXT) RETURNS TEXT AS $$
     SELECT CASE
         WHEN railway IN ('rail', 'narrow_gauge', 'preserved', 'funicular') THEN 'rail'
-        WHEN railway IN ('subway', 'light_rail', 'monorail', 'tram') THEN 'transit'
+        WHEN railway IN ('subway', 'light_rail', 'monorail', 'tram') THEN railway
         ELSE NULL
     END;
 $$ LANGUAGE SQL IMMUTABLE STRICT;
