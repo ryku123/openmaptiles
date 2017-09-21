@@ -29,10 +29,7 @@ layer:
       - path
       - raceway
       - rail
-      - subway
-      - light_rail
-      - monorail
-      - tram
+      - transit
     brunnel:
       description: |
           Mark whether way is a tunnel or bridge.
