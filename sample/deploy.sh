@@ -6,7 +6,6 @@ git config --global user.email "openmaptiles@klokantech.com"
 git config --global user.name "OpenMapTiles Travis"
 
 # deploy
-cp ./quickstart.log ./data/
 cd data
 git init
 git add tiles.mbtiles

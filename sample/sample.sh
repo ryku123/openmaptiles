@@ -319,3 +319,6 @@ echo "   © OpenMapTiles © OpenStreetMap contributors "
 echo " "
 echo " Thanks to all free, open source software developers and Open Data Contributors!    "
 echo "-------------------------------------------------------------------------------------"
+
+
+cp ./quickstart.log ./data/
